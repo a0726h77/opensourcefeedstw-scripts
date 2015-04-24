@@ -1,3 +1,7 @@
+setup:
+	test -d vendor || mkdir vendor
+	test -d vendor/meetup_api_client || git clone https://github.com/meetup/python-api-client vendor/meetup_api_client
+
 test:
 	@env | grep DRY_RUN; \
 	if [ $$? -eq 0 ]; then \
