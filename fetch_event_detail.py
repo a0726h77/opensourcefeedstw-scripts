@@ -2,24 +2,18 @@
 # encoding: utf-8
 
 import ConfigParser
-import os
 from os.path import expanduser
-import sys
 import re
 import time
 from pygeocoder import Geocoder
 
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + '/../lib')
+from libs import KKTIX
+from h4_scripts.Facebook import Facebook, Graph
 
-import KKTIX
-# import Accupass
-# from Meetup import Meetup
-from Facebook import Facebook, Graph
-
-from model.group_websites import GroupWebsitesModel
-from model.group_facebook_id import GroupFacebookIDModel
-from model.events import EventsModel
-from model.places import PlacesModel
+from models.group_websites import GroupWebsitesModel
+from models.group_facebook_id import GroupFacebookIDModel
+from models.events import EventsModel
+from models.places import PlacesModel
 group_websites_model = GroupWebsitesModel()
 group_facebook_id_model = GroupFacebookIDModel()
 events_model = EventsModel()
