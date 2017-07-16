@@ -9,6 +9,7 @@ class Events(db.Base):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     group_id = db.Column(db.Integer)
     name = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String)
     url = db.Column(db.String(255), nullable=False)
     start_datetime = db.Column(db.DateTime)
     end_datetime = db.Column(db.DateTime)
