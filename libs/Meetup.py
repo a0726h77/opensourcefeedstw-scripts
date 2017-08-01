@@ -16,7 +16,13 @@ class Meetup():
         self.meetup = meetup.api.Client(key)
 
     def get_recent_event(self, group_urlname):
-        events = self.meetup.GetEvents(group_urlname=group_urlname)
+        return self.get_events(group_urlname, 'upcoming')
+
+    def get_past_event(self, group_urlname):
+        return self.get_events(group_urlname, 'past')
+
+    def get_events(self, group_urlname, status):
+        events = self.meetup.GetEvents(group_urlname=group_urlname, status=status)
 
         results = []
         for event in events.results:

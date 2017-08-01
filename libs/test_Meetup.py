@@ -22,8 +22,8 @@ def test_get_recent_event():
     assert meetup.get_recent_event(GROUP_NAME)
 
 
-# def test_get_past_event():
-#     assert meetup.get_past_event(GROUP_NAME)
+def test_get_past_event():
+    assert meetup.get_past_event(GROUP_NAME)
 
 
 # def test_get_event():
