@@ -22,15 +22,18 @@ class Meetup():
         return self.get_events(group_urlname, 'past')
 
     def get_events(self, group_urlname, status):
-        events = self.meetup.GetEvents(group_urlname=group_urlname, status=status)
+        events = self.meetup.GetEvents(group_urlname=group_urlname, status=status, fields='description')
 
         results = []
         for event in events.results:
+            print(dir(event))
+            print(event.keys())
             _ = {}
 
             _['name'] = event['name']
             _['url'] = event['event_url']
-
+            # _['description'] = event['description']
+            _['people_count'] = event['yes_rsvp_count']
             _['start_datetime'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(event['time'] / 1000))
 
             results.append(_)
