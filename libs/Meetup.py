@@ -32,7 +32,7 @@ class Meetup():
 
             _['name'] = event['name']
             _['url'] = event['event_url']
-            # _['description'] = event['description']
+            _['description'] = event['description']
             _['people_count'] = event['yes_rsvp_count']
             _['start_datetime'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(event['time'] / 1000))
 

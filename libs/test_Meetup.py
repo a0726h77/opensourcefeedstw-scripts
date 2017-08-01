@@ -12,7 +12,7 @@ config_file = expanduser("~") + '/.opensourcefeeds.cfg'
 config = ConfigParser.SafeConfigParser()
 config.read(config_file)
 
-GROUP_NAME = 'Taiwan-R'
+GROUP_NAME = 'h4-taiwan'
 EVENT_URL = ''
 
 meetup = Meetup(config.get('MEETUP', 'key'))
