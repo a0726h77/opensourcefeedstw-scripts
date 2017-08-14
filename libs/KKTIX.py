@@ -3,6 +3,7 @@
 
 import requests
 from BeautifulSoup import BeautifulSoup
+from pyquery import PyQuery as pq
 import datetime
 import re
 
@@ -53,38 +54,21 @@ def get_past_event(url):
         return results
 
 def get_event(url):
-    r = requests.get(url)
-    soup = BeautifulSoup(r.text)
+    r = requests.get(url, headers={"Accept-Language": "en-US,en;q=0.5"})
+    doc = pq(r.content)
 
     event = {}
     try:
-        i = 1
-        for li in soup.find('div', attrs={'class': 'event-info'}).findAll('li'):
-            if i == 1:  # datetime
-                j = 1
-                for time_span in li.findAll('span', attrs={'class': 'timezoneSuffix'}):
-                    if j == 1:
-                        event['start_datetime'] = datetime.datetime.strptime(time_span.text, "%Y/%m/%d %H:%M(+0800)")
-                    elif j == 2:
-                        event['end_datetime'] = datetime.datetime.strptime(time_span.text, "%Y/%m/%d %H:%M(+0800)")
-                    j = j + 1
-            elif i == 2 or i == 3:
-                # people count
-                m = re.search("(\d+) \/ (\d+)", li.text)
-                if m:
-                    event['people_count'] = m.groups()[1]
-                else:
-                    # address
-                    m = re.search("(.*) \/ (.*)", li.text)
-                    if m:
-                        event['place_name'] = m.groups()[0]
-                        event['address'] = m.groups()[1]
-                    else:
-                        m = re.search("(.*)", li.text)
-                        if m and u'聯絡主辦單位' not in m.groups()[0]:
-                            event['place_name'] = m.groups()[0]
-
-            i = i + 1
+        event = {}
+        event['name'] = doc('h1').text()
+        event['url'] = url
+        event['description'] = doc('div.description').html()
+        event['people_count'] = doc('div.event-attendees').find('h2').find('em').text()
+        event['start_datetime'] = datetime.datetime.strptime(doc('span.timezoneSuffix')[0].text, "%Y/%m/%d(%a) %H:%M(+0800)")
+        # event['end_datetime'] = ''
+        place = re.search("(.*) \/ (.*)", doc('span.info-desc')[1].texteventcontent())
+        event['place_name'] = place[0]
+        event['address'] = place[1]
     except:
         pass
 

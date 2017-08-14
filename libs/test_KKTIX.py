@@ -7,7 +7,8 @@ import KKTIX
 DRY_RUN = True if os.environ.get('DRY_RUN') == 'True' else False
 
 URL = 'http://a0726h77-a19bb8.kktix.cc/'
-EVENT_URL = 'http://a0726h77-a19bb8.kktix.cc/events/c15ea1-d8112f'
+# EVENT_URL = 'http://a0726h77-a19bb8.kktix.cc/events/c15ea1-d8112f'
+EVENT_URL = 'https://hackingthursday.kktix.cc/events/2484fe2e-1dce57'
 
 
 def test_get_recent_event():
